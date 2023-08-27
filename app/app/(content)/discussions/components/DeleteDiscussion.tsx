@@ -5,7 +5,7 @@ import { Button, ConfirmationDialog } from '@/components/Elements';
 // import { useDeleteDiscussion } from '../api/deleteDiscussion';
 
 type DeleteDiscussionProps = {
-  id: string;
+  id: number;
 };
 
 export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {

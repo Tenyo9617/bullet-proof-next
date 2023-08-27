@@ -1,7 +1,7 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
-import { NAVIGATION, SideNavigationItem } from '../SideNavigation';
+import { NAVIGATION, SideNavigationItem } from '../components/SideNavigation';
 
 // import { Head } from '../Head';
 
@@ -10,7 +10,7 @@ type ContentLayoutProps = {
 };
 
 const getTitle = (pathname: string, navigation: SideNavigationItem[]) => {
-  const title = navigation.find((nav) => pathname === nav.to.replace(/[.]/g, ''));
+  const title = navigation.find((nav) => pathname === `/app/${nav.href}`);
   return title?.name;
 };
 

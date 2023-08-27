@@ -1,6 +1,9 @@
 'use server';
 
-import { CreateDiscussionDTO } from './components/CreateDiscussion';
+import { revalidatePath } from 'next/cache';
+import { CreateDiscussionDTO } from './@createDiscussion/page';
+import prisma from '@/lib/prisma';
+import { redirect } from 'next/navigation';
 
 export async function createDiscussion(data: CreateDiscussionDTO['data']) {
   const res = await fetch('http://localhost:3000/api', {
@@ -20,6 +23,12 @@ export async function createDiscussion(data: CreateDiscussionDTO['data']) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
   }
-
-  return res.json();
+  redirect('/app/discussions');
 }
+// export async function createDiscussion(data: CreateDiscussionDTO['data']) {
+//   const result = await prisma.discussion.create({
+//     data,
+//   });
+//   console.log('result', result);
+//   redirect('/app/discussions/aaa');
+// }

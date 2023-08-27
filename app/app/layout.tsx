@@ -1,9 +1,9 @@
 'use client';
 import { useState, Fragment } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { MobileSidebar } from './MobileSidebar';
-import { Sidebar } from './Sidebar';
-import { UserNavigation } from './UserNavigation';
+import { MobileSidebar } from './components/MobileSidebar';
+import { Sidebar } from './components/Sidebar';
+import { UserNavigation } from './components/UserNavigation';
 
 type MainLayoutProps = {
   children: React.ReactNode;

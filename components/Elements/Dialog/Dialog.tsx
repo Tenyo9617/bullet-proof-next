@@ -1,3 +1,4 @@
+'use client';
 import { Dialog as UIDialog, Transition } from '@headlessui/react';
 import * as React from 'react';
 import 'intersection-observer';

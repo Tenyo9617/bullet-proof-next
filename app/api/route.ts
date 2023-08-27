@@ -11,6 +11,8 @@ export async function POST(request: Request) {
   const result = await prisma.discussion.create({
     data: req,
   });
+  // console.log('result', result);
+
   return NextResponse.json(result);
 }
 
