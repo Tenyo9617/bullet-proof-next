@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-export async function DELETE(_request: Request, { params }: { params: { discussionId: string } }) {
-  const discussionId = params.discussionId;
+export async function DELETE(_request: Request, { params }: { params: { id: string } }) {
+  const discussionId = params.id;
 
   const result = await prisma.discussion.delete({
     where: {
