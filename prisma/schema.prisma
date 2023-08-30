@@ -11,8 +11,7 @@ datasource db {
 }
 
 model Discussion {
-  // TODO uuidに変更
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   title     String
   body      String
   createdAt DateTime @default(now())

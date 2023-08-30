@@ -12,7 +12,7 @@ export type TableProps<Entry> = {
   columns: TableColumn<Entry>[];
 };
 
-export const Table = <Entry extends { id: number }>({ data, columns }: TableProps<Entry>) => {
+export const Table = <Entry extends { id: string }>({ data, columns }: TableProps<Entry>) => {
   if (!data?.length) {
     return (
       <div className="flex flex-col items-center justify-center text-gray-500 bg-white h-80">

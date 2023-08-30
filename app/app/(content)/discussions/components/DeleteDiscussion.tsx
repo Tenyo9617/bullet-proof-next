@@ -2,17 +2,14 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 
 import { Button, ConfirmationDialog } from '@/components/Elements';
 
-// import { useDeleteDiscussion } from '../api/deleteDiscussion';
+import { useDeleteDiscussion } from '../client-api/deleteDiscussion';
 
 type DeleteDiscussionProps = {
-  id: number;
+  id: string;
 };
 
 export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {
-  const deleteDiscussionMutation = {
-    isLoading: false,
-  };
-  // const deleteDiscussionMutation = useDeleteDiscussion();
+  const deleteDiscussionMutation = useDeleteDiscussion();
 
   return (
     <ConfirmationDialog
@@ -29,10 +26,7 @@ export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {
           isLoading={deleteDiscussionMutation.isLoading}
           type="button"
           className="bg-red-600"
-          onClick={async () => {
-            console.log(12);
-          }}
-          // onClick={async () => await deleteDiscussionMutation.mutateAsync({ discussionId: id })}
+          onClick={async () => await deleteDiscussionMutation.mutateAsync({ discussionId: id })}
         >
           Delete Discussion
         </Button>

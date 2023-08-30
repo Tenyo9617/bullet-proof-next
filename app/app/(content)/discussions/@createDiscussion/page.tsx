@@ -9,13 +9,7 @@ import { redirect, useRouter } from 'next/navigation';
 import { useState } from 'react';
 // import { createDiscussion } from '../actions';
 
-// import { CreateDiscussionDTO, useCreateDiscussion } from '../api/createDiscussion';
-export type CreateDiscussionDTO = {
-  data: {
-    title: string;
-    body: string;
-  };
-};
+import { CreateDiscussionDTO, useCreateDiscussion } from '../client-api/createDiscussion';
 
 // async function createDiscuss(data: CreateDiscussionDTO['data']) {
 //   const res = await fetch('http://localhost:3000/api', {
@@ -38,39 +32,39 @@ export type CreateDiscussionDTO = {
 
 //   return res.json();
 // }
-export async function createDiscussion(data: CreateDiscussionDTO['data']) {
-  const res = await fetch('http://localhost:3000/api', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title: data.title,
-      body: data.body,
-    }),
-  });
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
+// export async function createDiscussion(data: CreateDiscussionDTO['data']) {
+//   const res = await fetch('http://localhost:3000/api', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       title: data.title,
+//       body: data.body,
+//     }),
+//   });
+//   // The return value is *not* serialized
+//   // You can return Date, Map, Set, etc.
 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data');
-  }
-}
+//   if (!res.ok) {
+//     // This will activate the closest `error.js` Error Boundary
+//     throw new Error('Failed to fetch data');
+//   }
+// }
 const schema = z.object({
   title: z.string().min(1, 'Required'),
   body: z.string().min(1, 'Required'),
 });
 
 export default function CreateDiscussion() {
-  const [isSuccess, setIsSuccess] = useState(false);
-  const router = useRouter();
-  // 仮置き
-  const createDiscussionMutation = {
-    isSuccess: false,
-    isLoading: false,
-  };
-  // const createDiscussionMutation = useCreateDiscussion();
+  // const [isSuccess, setIsSuccess] = useState(false);
+  // const router = useRouter();
+  // // 仮置き
+  // const createDiscussionMutation = {
+  //   isSuccess: false,
+  //   isLoading: false,
+  // };
+  const createDiscussionMutation = useCreateDiscussion();
 
   // const result = prisma.discussion.create({
   //   data: {
@@ -81,7 +75,7 @@ export default function CreateDiscussion() {
   // console.log(result);
   return (
     <FormDrawer
-      isDone={isSuccess}
+      isDone={createDiscussionMutation.isSuccess}
       triggerButton={
         <Button size="sm" startIcon={<PlusIcon className="h-4 w-4" />}>
           Create Discussion
@@ -97,11 +91,13 @@ export default function CreateDiscussion() {
       <Form<CreateDiscussionDTO['data'], typeof schema>
         id="create-discussion"
         onSubmit={async (values) => {
-          setIsSuccess(false);
-          const data = await createDiscussion(values);
-          setIsSuccess(true);
+          await createDiscussionMutation.mutateAsync({ data: values });
+          // onSubmit={async (values) => {
+          //   setIsSuccess(false);
+          //   const data = await createDiscussion(values);
+          //   setIsSuccess(true);
 
-          router.refresh();
+          //   router.refresh();
         }}
         schema={schema}
       >
