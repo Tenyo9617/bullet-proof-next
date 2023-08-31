@@ -37,7 +37,7 @@ export default function DiscussionsList() {
           title: '',
           field: 'id',
           Cell({ entry: { id } }) {
-            return <Link href={`./${id}`}>View</Link>;
+            return <Link href={`./discussions/${id}`}>View</Link>;
           },
         },
         {
